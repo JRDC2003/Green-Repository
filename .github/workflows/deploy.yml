@@ -1,0 +1,29 @@
+name: CI/CD Pipeline
+
+# Trigger this workflow on pull requests to the main branch
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Pull the code from your repository into the GitHub runner
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Set up your language environment (Example uses Node.js, change as needed)
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    # 3. Install dependencies and run tests to make sure the PR doesn't break anything
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Tests
+      run: npm test
